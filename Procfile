@@ -1,1 +1,1 @@
-web: gunicorn lapointe.wsgi --log-file -
+web: gunicorn schedule.wsgi --log-file -
