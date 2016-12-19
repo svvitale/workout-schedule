@@ -25,7 +25,10 @@ SECRET_KEY = 'oi&5d-8y^7)a@0s@3@#hd1v4ymb8j)-leu=h(0c=qa8t499)v2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'workout.vitale.io',
+    'workout-schedule.herokuapp.com'
+]
 
 
 # Application definition
