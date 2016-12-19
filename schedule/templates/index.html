@@ -1,0 +1,75 @@
+{% load filters %}
+
+<html>
+
+<head>
+    <title>24 Hour Workouts</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/static/js/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/js/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"/>
+
+    <script type="text/javascript" src="/static/js/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#datepicker').datepicker().change(function() {
+                window.location.href = '/?date=' + $(this).val()
+            });
+        });
+    </script>
+
+    <style>
+        table {
+            width: 100%;
+        }
+
+        td {
+            border-bottom: 1px solid #888888;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="padding: 20px 5px">
+        Date: <input id="datepicker" type="text" value="{{ requested_date }}">
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <td>&nbsp;</td>
+                {% for location_name in location_names %}
+                    <td><b>{{ location_name }}</b></td>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for time_slot, classes_by_location in scheduled_classes %}
+                <tr>
+                    <td style="white-space: nowrap">
+                        {{ time_slot }}
+                    </td>
+                {% for location_name in location_names %}
+                    <td>
+                        {% for class_entry in classes_by_location|get_item:location_name %}
+                            {{ class_entry.ClassName }} ({{ class_entry.Instructors.0.FirstName }})<br>
+                        {% endfor %}
+                    </td>
+                {% endfor %}
+
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+</body>
+
+</html>
